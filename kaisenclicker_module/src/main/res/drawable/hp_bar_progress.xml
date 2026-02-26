@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background track: dark charcoal rectangular (esquinas cuadradas) -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#1F2937" /> <!-- gris carbón -->
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+
+    <!-- Secondary progress (opcional overlay más oscuro) -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="#16323A" />
+                <corners android:radius="0dp" />
+            </shape>
+        </clip>
+    </item>
+
+    <!-- Primary progress: solid green fill (esquinas cuadradas) -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="#00C853" /> <!-- verde vibrante -->
+                <corners android:radius="0dp" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">GameHub</string>
+    <string name="hub_title">GameHub</string>
+    <string name="hub_subtitle">Tus juegos, un solo lugar</string>
+    <string name="empty_title">No hay juegos disponibles</string>
+    <string name="empty_subtitle">Los juegos que añadas aparecerán aquí</string>
+    <string name="game_count">%d juego(s)</string>
+
+    <!-- Auth -->
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="login_subtitle">Accede a tu cuenta de GameHub</string>
+    <string name="register_title">Crear Cuenta</string>
+    <string name="register_subtitle">Únete al GameHub</string>
+    <string name="hint_username">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="btn_login">ENTRAR</string>
+    <string name="btn_register">REGISTRARSE</string>
+    <string name="link_no_account">¿No tienes cuenta? Regístrate</string>
+    <string name="link_has_account">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="error_empty_fields">Rellena todos los campos</string>
+    <string name="error_user_exists">Este usuario ya existe</string>
+    <string name="error_invalid_credentials">Usuario o contraseña incorrectos</string>
+    <string name="error_passwords_mismatch">Las contraseñas no coinciden</string>
+    <string name="error_short_password">La contraseña debe tener al menos 4 caracteres</string>
+    <string name="error_short_username">El usuario debe tener al menos 3 caracteres</string>
+    <string name="register_success">¡Cuenta creada! Inicia sesión</string>
+    <string name="welcome_user">Bienvenido, %s</string>
+    <string name="btn_logout">Cerrar sesión</string>
+    <string name="logout_confirm_title">Cerrar sesión</string>
+    <string name="logout_confirm_message">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Mi Perfil</string>
+    <string name="status_online">En línea</string>
+    <string name="status_playing">Jugando</string>
+    <string name="status_away">Ausente</string>
+    <string name="total_points">Puntos totales</string>
+    <string name="points_format">%d pts</string>
+    <string name="games_played">Partidas jugadas</string>
+    <string name="member_since">Miembro desde</string>
+    <string name="time_played">Tiempo jugado</string>
+    <string name="edit_status">Cambiar estado</string>
+    <string name="change_photo">Cambiar foto</string>
+    <string name="profile_stats">Estadísticas</string>
+    <string name="best_score">Mejor puntuación</string>
+
+    <!-- Menu options -->
+    <string name="menu_games">Juegos</string>
+    <string name="menu_scores">Puntuaciones</string>
+    <string name="menu_challenges">Desafíos</string>
+    <string name="menu_profile">Perfil</string>
+
+    <!-- Challenges -->
+    <string name="challenges_title">Desafíos</string>
+    <string name="challenges_subtitle">Completa retos para ganar puntos extra</string>
+    <string name="challenge_completed">¡Completado!</string>
+    <string name="challenge_locked">Pendiente</string>
+    <string name="challenge_progress">%d/%d</string>
+    <string name="challenge_points_reward">+%d pts</string>
+
+    <!-- Profile Activity -->
+    <string name="select_status">Selecciona tu estado</string>
+    <string name="photo_updated">Foto actualizada</string>
+    <string name="back">Atrás</string>
+
+    <!-- Leaderboard -->
+    <string name="search_player_hint">Buscar jugador</string>
+    <string name="score_detail_title">Detalle de puntuación</string>
+
+    <!-- Leaderboard Tabs -->
+    <string name="tab_kaisen_clicker">Kaisen Clicker</string>
+    <string name="tab_2048">2048</string>
+
+    <!-- Kaisen Clicker Stats -->
+    <string name="kaisen_enemy_level">Nivel del enemigo</string>
+    <string name="kaisen_total_clicks">Clicks totales</string>
+    <string name="kaisen_total_damage">Daño total</string>
+    <string name="kaisen_enemies_defeated">Enemigos derrotados</string>
+    <string name="kaisen_bosses_defeated">Bosses derrotados</string>
+    <string name="kaisen_cursed_energy">Energía maldita</string>
+    <string name="kaisen_character_level">Nivel del personaje</string>
+    <string name="kaisen_time_played">Tiempo jugado</string>
+
+    <!-- 2048 Stats -->
+    <string name="score_2048_current">Puntuación actual</string>
+    <string name="score_2048_best">Mejor puntuación</string>
+    <string name="score_2048_moves">Movimientos</string>
+    <string name="score_2048_time">Tiempo de juego</string>
+
+    <!-- Scores List -->
+    <string name="scores_list_title">Historial de Puntuaciones</string>
+    <string name="view_all_scores">Ver historial de puntuaciones</string>
+    <string name="search_name_hint">Buscar por nombre…</string>
+    <string name="search_score_hint">Valor</string>
+    <string name="btn_search">Buscar</string>
+    <string name="btn_clear">Limpiar</string>
+    <string name="sort_by_name">Nombre</string>
+    <string name="sort_by_score">Puntuación</string>
+    <string name="sort_by_date">Fecha</string>
+    <string name="sort_label">Ordenar:</string>
+    <string name="operator_label">Operador:</string>
+    <string name="no_scores_found">No se encontraron puntuaciones</string>
+    <string name="score_deleted">Puntuación eliminada</string>
+    <string name="undo">Deshacer</string>
+    <string name="detail_game_label">Juego</string>
+    <string name="detail_player_label">Jugador</string>
+    <string name="detail_score_label">Puntuación</string>
+    <string name="detail_date_label">Fecha</string>
+    <string name="game_unknown">Desconocido</string>
+</resources>

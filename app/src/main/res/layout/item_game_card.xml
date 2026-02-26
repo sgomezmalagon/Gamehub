@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_game_card_ripple"
+    android:padding="16dp"
+    android:layout_margin="6dp"
+    android:gravity="center"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Icono del juego recortado en círculo -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivGameIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:background="@color/hub_surface_light"
+        app:shapeAppearanceOverlay="@style/CircleImageView"
+        app:strokeColor="@color/hub_card_stroke"
+        app:strokeWidth="1dp"
+        tools:src="@mipmap/ic_launcher"
+        android:contentDescription="@null" />
+
+    <!-- Nombre del juego -->
+    <TextView
+        android:id="@+id/tvGameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/hub_text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center"
+        tools:text="Kaisen Clicker" />
+
+    <!-- Descripción del juego -->
+    <TextView
+        android:id="@+id/tvGameDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/hub_text_hint"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        tools:text="¡Haz clic para jugar!" />
+
+</LinearLayout>

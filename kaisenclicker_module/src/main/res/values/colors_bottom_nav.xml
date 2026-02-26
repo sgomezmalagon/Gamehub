@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gradient for bottom bar -->
+    <color name="red_dark_start">#7F0D0D</color>
+    <color name="red_dark_end">#2B0000</color>
+    <color name="border_top">#33000000</color>
+
+    <!-- Gold for center button -->
+    <color name="gold_start">#FFD54F</color>
+    <color name="gold_end">#FFC107</color>
+
+    <!-- Icon colors -->
+    <color name="icon_shop_color">#4FC3F7</color>
+    <color name="icon_chest_color">#FFB74D</color>
+    <color name="icon_trophy_color">#CE93D8</color>
+    <color name="icon_notifications_color">#A5D6A7</color>
+    <color name="icon_swords_color">#6D4C41</color>
+
+    <color name="icon_unselected">#9E9E9E</color>
+</resources>

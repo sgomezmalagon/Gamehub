@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="leaderboard_order_options">
+        <item>Score desc</item>
+        <item>Score asc</item>
+        <item>Name asc</item>
+        <item>Date desc</item>
+    </string-array>
+</resources>
+

@@ -1,0 +1,533 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% Colores
+\definecolor{codegreen}{rgb}{0.25,0.49,0.48}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.49,0.30,0.62}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.97}
+
+\lstdefinestyle{sqlstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{codegray},
+    tabsize=2
+}
+
+\lstdefinestyle{javastyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{codepurple}\bfseries,
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{codegray},
+    language=Java,
+    tabsize=2
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{GameHub --- Documentación}}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small Febrero 2026}
+
+\titleformat{\section}{\Large\bfseries\color{codepurple}}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
+
+\title{\Huge\textbf{GameHub --- Centro de Juegos Android}\\[0.5em]
+\large Documentación Técnica del Proyecto}
+\author{Sergio}
+\date{Febrero 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Visión General}
+% ============================================================
+
+GameHub es una aplicación Android multi-módulo que funciona como un \textbf{centro de juegos}. Consta de tres módulos Gradle:
+
+\begin{itemize}
+    \item \texttt{app} --- El Hub principal (login, perfil, desafíos, puntuaciones).
+    \item \texttt{kaisenclicker\_module} --- Juego \textit{Kaisen Clicker} + la base de datos global.
+    \item \texttt{2048\_module} --- Juego \textit{2048}.
+\end{itemize}
+
+El flujo general es: \textbf{Splash Screen} $\rightarrow$ \textbf{Login/Registro} $\rightarrow$ \textbf{Hub principal} (perfil, menú, grid de juegos) $\rightarrow$ el usuario selecciona un juego y entra a jugarlo.
+
+% ============================================================
+\section{Módulo App --- El Hub}
+% ============================================================
+
+Todo el código se encuentra en \texttt{app/src/main/java/com/example/gamehub/}.
+
+% ────────────────────────────────────────
+\subsection{Splash Screen y Login}
+
+Al abrir la app, \texttt{LoginActivity} ejecuta \texttt{SplashScreen.installSplashScreen(this)} (biblioteca \texttt{androidx.core.splashscreen}), que muestra la pantalla de carga nativa de Android.
+
+A continuación comprueba si hay sesión activa (\texttt{SessionManager.isLoggedIn()}). Si la hay, salta al Hub. Si no, muestra un formulario con campos de usuario y contraseña.
+
+Al pulsar \textbf{«ENTRAR»}:
+\begin{enumerate}
+    \item Valida que los campos no estén vacíos.
+    \item Llama a \texttt{UserRepository.authenticateUser(username, password)}, que busca en la tabla \texttt{users} de SQLite comparando el hash SHA-256 de la contraseña.
+    \item Si es correcto $\rightarrow$ crea sesión y navega al Hub.
+    \item Si falla $\rightarrow$ muestra error y animación \textit{shake} en el botón.
+\end{enumerate}
+
+El \textbf{registro} (\texttt{RegisterActivity}) valida: campos no vacíos, usuario $\geq$ 3 caracteres, contraseña $\geq$ 4 caracteres, confirmación coincide, usuario no existe ya. Si todo OK, inserta en la tabla \texttt{users} con la contraseña hasheada.
+
+% ────────────────────────────────────────
+\subsection{SessionManager}
+
+Clase en \texttt{app/.../auth/SessionManager.java}. Gestiona la sesión del usuario con \texttt{SharedPreferences} (fichero \texttt{GameHubSession.xml}).
+
+Datos que almacena:
+\begin{itemize}
+    \item \texttt{is\_logged\_in}, \texttt{username} --- estado de sesión.
+    \item \texttt{user\_status} --- estado del usuario: \texttt{"online"}, \texttt{"playing"} o \texttt{"away"}.
+    \item \texttt{photo\_uri} --- URI de la foto de perfil seleccionada de la galería.
+    \item \texttt{total\_points}, \texttt{games\_played} --- puntos totales y partidas jugadas.
+    \item \texttt{member\_since} --- timestamp de registro.
+    \item \texttt{game\_start\_time}, \texttt{total\_time\_played} --- tracking de tiempo de juego real (se marca al entrar a un juego y se calcula al volver).
+\end{itemize}
+
+% ────────────────────────────────────────
+\subsection{Hub Principal (MainActivity)}
+
+Pantalla que muestra:
+\begin{enumerate}
+    \item \textbf{Header}: logo, título «GameHub», botón logout, bienvenida con nombre del usuario.
+    \item \textbf{Tarjeta de perfil}: foto circular (\texttt{ShapeableImageView}), nombre, indicador de estado (punto de color), puntos totales. Click $\rightarrow$ abre \texttt{ProfileActivity}.
+    \item \textbf{Menú} (4 botones): Juegos, Puntuaciones, Desafíos, Perfil.
+    \item \textbf{Grid de juegos}: \texttt{RecyclerView} con \texttt{GridLayoutManager(2 columnas)}. Cada tarjeta tiene icono circular, nombre y descripción. Al pulsarla: registra inicio de partida, incrementa partidas jugadas y lanza la Activity del juego con \texttt{extra\_username}.
+\end{enumerate}
+
+En \texttt{onResume()}, al volver de un juego, llama a \texttt{markGameEnded()} para acumular el tiempo jugado y refresca el perfil.
+
+Los juegos se registran en un \textbf{Singleton} \texttt{GameRepository} mediante objetos \texttt{Game} (id, nombre, icono, descripción, Activity destino).
+
+% ────────────────────────────────────────
+\subsection{Perfil de Usuario}
+
+\texttt{ProfileActivity} muestra: foto de perfil (100$\times$100dp circular), nombre, estado (clickable --- abre AlertDialog con 3 opciones), puntos, partidas jugadas, tiempo jugado (formato \texttt{HH:MM:SS}, medido de verdad), miembro desde.
+
+El botón \textbf{«Cambiar foto»} abre la galería con \texttt{ActivityResultContracts.GetContent("image/*")}. Se obtiene permiso persistente con \texttt{takePersistableUriPermission()} y se guarda la URI en \texttt{SessionManager}.
+
+% ────────────────────────────────────────
+\subsection{Desafíos}
+
+\texttt{ChallengesActivity} crea 8 desafíos cuyos datos de progreso se leen de \texttt{SessionManager}:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Desafío} & \textbf{Objetivo} & \textbf{Recompensa} \\
+\midrule
+Primer Paso & 1 partida & 50 pts \\
+Jugador Habitual & 5 partidas & 100 pts \\
+Veterano & 10 partidas & 200 pts \\
+Primeros Puntos & 100 puntos & 50 pts \\
+Mil Puntos & 1.000 puntos & 150 pts \\
+Maestro del GameHub & 5.000 puntos & 500 pts \\
+Adicto al Juego & 25 partidas & 300 pts \\
+Explorador & 2 juegos distintos & 100 pts \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Cada tarjeta muestra barra de progreso, texto «X/Y» y badge verde (completado) o gris (pendiente con puntos de recompensa).
+
+% ────────────────────────────────────────
+\subsection{Puntuaciones (Leaderboard)}
+
+\texttt{LeaderboardActivity} tiene 2 tabs:
+
+\begin{itemize}
+    \item \textbf{Kaisen Clicker}: lee de \texttt{GameDataManager} --- nivel del enemigo, clicks totales, daño total, enemigos/bosses derrotados, energía maldita, nivel del personaje, tiempo jugado.
+    \item \textbf{2048}: lee de \texttt{SqlRepository} vía \texttt{kv\_store} --- puntuación actual, mejor puntuación, movimientos, tiempo.
+\end{itemize}
+
+\subsubsection{Historial de Puntuaciones (ScoresListActivity)}
+
+Pantalla con:
+\begin{itemize}
+    \item Búsqueda por nombre (\texttt{LIKE}) y por valor de puntuación con operadores ($=$, $>$, $<$, $\geq$, $\leq$).
+    \item 3 botones de ordenación: Nombre, Puntuación, Fecha.
+    \item \textbf{Swipe to delete}: deslizar una tarjeta la borra (\texttt{ItemTouchHelper}).
+    \item Click en tarjeta $\rightarrow$ \texttt{ScoreDetailActivity} con nombre, juego, puntuación y fecha.
+\end{itemize}
+
+El adapter (\texttt{ScoresCursorAdapter}) usa un \textbf{Cursor} de SQLite con \texttt{RecyclerView} + \texttt{CardView}. El método \texttt{swapCursor()} cierra el cursor anterior y carga el nuevo.
+
+% ============================================================
+\section{Módulo Kaisen Clicker}
+% ============================================================
+
+Código en \texttt{kaisenclicker\_module/src/main/java/com/example/kaisenclicker/}.
+
+% ────────────────────────────────────────
+\subsection{Activity Principal}
+
+\texttt{ui/activities/MainActivity.java}: lee el \texttt{extra\_username}, crea un \texttt{GameDataManager} y carga los datos guardados.
+
+\textbf{Navegación inferior}: 5 botones circulares (\texttt{MaterialCardView}):
+
+\begin{center}
+\begin{tabular}{clll}
+\toprule
+\textbf{Pos} & \textbf{Icono} & \textbf{Archivo} & \textbf{Abre} \\
+\midrule
+1 & Flecha & \texttt{ic\_arrow\_up} (vector) & ShopFragment \\
+2 & Cofre & \texttt{chest.png} (PNG) & ChestFragment \\
+3 & Espadas & \texttt{battle\_icon.png} (PNG) & CampaignFragment \\
+4 & Personaje & \texttt{character\_menu.png} (PNG) & CharacterInventoryFragment \\
+5 & Trofeo & \texttt{ic\_trophy} (vector) & StatisticsFragment \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+El botón seleccionado se agranda (60dp $\rightarrow$ 72dp), cambia borde a dorado y tiene animación de rebote (\texttt{OvershootInterpolator}).
+
+% ────────────────────────────────────────
+\subsection{Combate (CampaignFragment)}
+
+Pantalla principal del juego. Fondo: \texttt{shibuya.webp}. Elementos:
+\begin{itemize}
+    \item Barra de vida (\texttt{HpBarComponent}): degradado dinámico verde/amarillo/rojo.
+    \item Imagen del enemigo: cambia según el nivel (normal, boss, fases).
+    \item Popup de daño: texto rojo flotante con fade-out.
+    \item Display de energía maldita (esquina superior derecha).
+    \item 4 botones de habilidades (\texttt{SkillButtonView}) con cooldown visual.
+\end{itemize}
+
+Enemigos (imágenes en \texttt{res/drawable/}): \texttt{yusepe.png} (básico), \texttt{choso\_boss.webp}, \texttt{mahito.png}, \texttt{mahoraga\_boss.png}, versiones dañadas y transformadas.
+
+% ────────────────────────────────────────
+\subsection{Tienda (ShopFragment)}
+
+4 mejoras comprables con energía maldita:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Mejora} & \textbf{Icono} & \textbf{Efecto} \\
+\midrule
+Tap Damage & \texttt{clicks.png} & +daño por click \\
+Auto Clicker & \texttt{autoclicker.png} & clicks automáticos \\
+Black Flash & \texttt{blackflash.png} & +críticos \\
+Energy Boost & \texttt{energy\_boost.png} & +energía ganada \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ────────────────────────────────────────
+\subsection{Cofres (ChestFragment)}
+
+Al abrir un cofre: 30\% probabilidad de desbloquear un personaje $\rightarrow$ muestra \texttt{RareSummonDialogFragment} con animación. Si no: se gana energía maldita escalada.
+
+% ────────────────────────────────────────
+\subsection{Inventario (CharacterInventoryFragment)}
+
+2 personajes: \textbf{Ryomen Sukuna} (id=1) y \textbf{Satoru Gojo} (id=2). Cada uno con 4 habilidades con nivel mejorable. Imágenes: \texttt{sukunapfp.jpg}, \texttt{gojo\_character.png}, más imágenes de cada habilidad.
+
+% ────────────────────────────────────────
+\subsection{Sistema de GIFs Animados}
+\label{sec:gifs}
+
+Las habilidades especiales reproducen \textbf{GIFs animados a pantalla completa} como efecto visual. Los GIFs se cargan con la biblioteca \textbf{Glide} (versión 4.16.0).
+
+\subsubsection{Cómo funciona}
+
+\begin{enumerate}
+    \item Existe un \texttt{ImageView} oculto (\texttt{skillGifOverlay}) que ocupa toda la pantalla del fragment.
+    \item Al usar una habilidad que tiene GIF, se llama a \texttt{showSkillGifAnimation(gifResId, durationMs, onComplete)}.
+    \item Este método:
+    \begin{enumerate}[label=\alph*)]
+        \item Hace visible el overlay con alpha = 0.
+        \item Carga el GIF con \texttt{Glide.with(this).asGif().load(gifResId).into(overlay)}.
+        \item Aplica fade-in (200ms).
+        \item Tras \texttt{durationMs}, aplica fade-out (300ms).
+        \item Al terminar, oculta el overlay, limpia Glide con \texttt{Glide.with(this).clear(overlay)}, y ejecuta el callback \texttt{onComplete} (que normalmente aplica el daño).
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Los 4 GIFs y cuándo se usan}
+
+Todos están en \texttt{kaisenclicker\_module/src/main/res/drawable/}:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Archivo} & \textbf{Habilidad} & \textbf{Personaje} & \textbf{Duración} \\
+\midrule
+\texttt{fuga\_animation.gif} & Fuga (Habilidad 3) & Sukuna & 1.5s \\
+\texttt{hollow\_purple\_animation.gif} & Fuga / Vacío Púrpura (Hab. 3) & Gojo & 1.5s \\
+\texttt{sukuna\_domain\_animation.gif} & Expansión de Dominio (Ultimate) & Sukuna & 2s \\
+\texttt{gojo\_domain\_animation.gif} & Expansión de Dominio (Ultimate) & Gojo & 2s \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Qué pasa después de cada GIF}
+
+\begin{itemize}
+    \item \textbf{Fuga (Sukuna)}: tras el GIF, aplica un golpe devastador + quemadura DoT (daño por segundo durante varios segundos).
+    \item \textbf{Hollow Purple (Gojo)}: mismo efecto que Fuga pero para Gojo.
+    \item \textbf{Dominio de Sukuna}: tras el GIF, cambia el fondo a \texttt{shrine\_background.jpg}, activa ráfaga de 12 golpes alternando Cleave/Dismantle durante 5 segundos + sangrado continuo.
+    \item \textbf{Dominio de Gojo}: tras el GIF, cambia el fondo a \texttt{gojo\_domain\_background.jpg}, activa 5 segundos de habilidades sin cooldown.
+\end{itemize}
+
+\subsubsection{Dependencia Glide}
+
+En \texttt{kaisenclicker\_module/build.gradle.kts}:
+\begin{lstlisting}[style=javastyle]
+implementation("com.github.bumptech.glide:glide:4.16.0")
+annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+\end{lstlisting}
+
+Android no soporta GIF animados de forma nativa en \texttt{ImageView}. Glide decodifica los frames del GIF y los reproduce automáticamente cuando se usa \texttt{Glide.with(ctx).asGif().load(R.drawable.xxx).into(imageView)}.
+
+% ============================================================
+\section{Base de Datos}
+% ============================================================
+
+% ────────────────────────────────────────
+\subsection{Ubicación del código}
+
+Todo el código de la base de datos está en \texttt{kaisenclicker\_module}:
+
+\begin{center}
+\texttt{kaisenclicker\_module/src/main/java/com/example/kaisenclicker/persistence/save/}
+\end{center}
+
+\begin{tabular}{ll}
+\toprule
+\textbf{Archivo} & \textbf{Función} \\
+\midrule
+\texttt{AppDatabaseHelper.java} & Crea y actualiza las tablas SQLite \\
+\texttt{SqlRepository.java} & Operaciones CRUD (lectura/escritura) \\
+\texttt{GameDataManager.java} & Capa de alto nivel (SharedPreferences + SQL) \\
+\texttt{UserRepository.java} & Registro y login de usuarios \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3cm}
+Aunque vive en el módulo Kaisen Clicker, es la \textbf{base de datos global} de toda la app. El Hub y el 2048 importan estas clases porque \texttt{app/build.gradle.kts} incluye \texttt{implementation(project(":kaisenclicker\_module"))}.
+
+% ────────────────────────────────────────
+\subsection{Ubicación de los ficheros en el dispositivo}
+
+Los ficheros \texttt{.db} se crean automáticamente en:
+
+\begin{center}
+\texttt{/data/data/com.example.gamehub/databases/}
+\end{center}
+
+\begin{itemize}
+    \item \texttt{kaisen\_clicker.db} --- tabla \texttt{users} (compartida, para login/registro).
+    \item \texttt{kaisen\_clicker\_<usuario>.db} --- todo el progreso del usuario (una BD por usuario).
+\end{itemize}
+
+Esta carpeta es \textbf{privada}: solo la app puede acceder. Al desinstalar se pierde todo.
+
+Los ficheros SharedPreferences están en \texttt{/data/data/com.example.gamehub/shared\_prefs/}.
+
+Para inspeccionar durante el desarrollo: \textbf{Android Studio $\rightarrow$ App Inspection $\rightarrow$ Database Inspector}.
+
+% ────────────────────────────────────────
+\subsection{Tablas de la base de datos}
+
+\texttt{AppDatabaseHelper} (versión 4) crea 7 tablas:
+
+\subsubsection{1. Tabla \texttt{users}}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,           -- SHA-256, nunca texto plano
+    created_at INTEGER DEFAULT (strftime('%s','now'))
+);
+\end{lstlisting}
+
+\subsubsection{2. Tabla \texttt{kv\_store} (clave-valor genérico)}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE kv_store (
+    k TEXT PRIMARY KEY,    -- 'k' en vez de 'key' (palabra reservada)
+    value_text TEXT,
+    value_int INTEGER,
+    value_long INTEGER,
+    value_real REAL
+);
+\end{lstlisting}
+
+Almacena cualquier dato simple de ambos juegos. Ejemplos de claves:
+\begin{itemize}
+    \item Kaisen: \texttt{cursed\_energy}, \texttt{enemy\_level}, \texttt{total\_clicks}, \texttt{total\_damage}, \texttt{enemies\_defeated}, \texttt{bosses\_defeated}, \texttt{character\_level}, \texttt{total\_play\_seconds}\ldots
+    \item 2048: \texttt{2048\_score}, \texttt{2048\_best\_score}, \texttt{2048\_moves}, \texttt{2048\_seconds}.
+\end{itemize}
+
+\subsubsection{3. Tabla \texttt{characters}}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE characters (
+    id INTEGER PRIMARY KEY, unlocked INTEGER DEFAULT 0,
+    level INTEGER DEFAULT 1, xp INTEGER DEFAULT 0
+);
+-- 2 filas por defecto: Sukuna (id=1), Gojo (id=2), ambos bloqueados
+\end{lstlisting}
+
+\subsubsection{4. Tabla \texttt{upgrades}}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE upgrades (
+    id TEXT PRIMARY KEY, level INTEGER DEFAULT 0, purchased INTEGER DEFAULT 0
+);
+\end{lstlisting}
+IDs: \texttt{tap\_damage\_level}, \texttt{auto\_clicker\_level}, \texttt{critical\_damage\_level}, \texttt{energy\_boost\_level}.
+
+\subsubsection{5. Tabla \texttt{skills}}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE skills (
+    id TEXT PRIMARY KEY, character_id INTEGER,
+    unlocked INTEGER DEFAULT 0, level INTEGER DEFAULT 0
+);
+\end{lstlisting}
+IDs: \texttt{cleave}, \texttt{dismantle}, \texttt{fuga}, \texttt{domain}, \texttt{amplificacion\_azul}, \texttt{ritual\_inverso\_rojo}, \texttt{vacio\_purpura}.
+
+\subsubsection{6. Tabla \texttt{enemies}}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE enemies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    enemy_level INTEGER DEFAULT 1, defeated_count INTEGER DEFAULT 0
+);
+-- 1 fila por defecto (id=1, nivel 1, 0 derrotados)
+\end{lstlisting}
+
+\subsubsection{7. Tabla \texttt{scores} (puntuaciones de TODOS los juegos)}
+\begin{lstlisting}[style=sqlstyle]
+CREATE TABLE scores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    player_name TEXT NOT NULL,
+    game_name TEXT,            -- "2048" o "Kaisen Clicker"
+    score_value INTEGER NOT NULL,
+    created_at INTEGER DEFAULT (strftime('%s','now')),
+    extra TEXT                 -- JSON libre, ej: {"game":"2048"}
+);
+\end{lstlisting}
+
+% ────────────────────────────────────────
+\subsection{SqlRepository --- Operaciones principales}
+
+\begin{itemize}
+    \item \textbf{kv\_store}: \texttt{putInt/getInt}, \texttt{putLong/getLong}, \texttt{putString/getString}. Usa \texttt{INSERT OR REPLACE}. Método \texttt{incrementIntKV(key, delta)} usa transacciones atómicas.
+    \item \textbf{scores}: \texttt{insertScore()}, \texttt{deleteScoreById()}, \texttt{getScoresCursor(nameFilter, scoreOp, scoreValue, orderBy)} (query dinámica con filtros), \texttt{getScoreById()}.
+    \item \textbf{enemies}: \texttt{getEnemyLevel()}, \texttt{setEnemyLevel()}, \texttt{incrementEnemiesDefeated()} (transacción atómica).
+    \item \textbf{characters}: \texttt{upsertCharacter()}, \texttt{getAllCharacters()}.
+    \item \textbf{upgrades}: \texttt{setUpgradeLevel()}, \texttt{getUpgradeLevel()}.
+    \item \textbf{skills}: \texttt{upsertSkill()}, \texttt{getSkillLevel(skillId, characterId)}.
+\end{itemize}
+
+Todos los métodos de kv\_store tienen un \textbf{sistema de retry}: si falla, ejecuta \texttt{CREATE TABLE IF NOT EXISTS} y reintenta una vez.
+
+% ────────────────────────────────────────
+\subsection{GameDataManager --- Doble escritura}
+
+Es la interfaz que usan los fragments. Combina \textbf{SharedPreferences} + \textbf{SQLite}.
+
+\textbf{Al escribir} --- siempre escribe en ambos:
+\begin{lstlisting}[style=javastyle]
+public void saveCursedEnergy(int energy) {
+    prefs.edit().putInt("cursed_energy", energy).apply();  // SharedPreferences
+    repository.putInt("cursed_energy", energy);            // SQLite
+}
+\end{lstlisting}
+
+\textbf{Al leer} --- si la migración a SQL está completa, lee de SQLite; si no, de SharedPreferences:
+\begin{lstlisting}[style=javastyle]
+public int getCursedEnergy() {
+    if (useSql()) return repository.getInt("cursed_energy",
+                         prefs.getInt("cursed_energy", 0));
+    return prefs.getInt("cursed_energy", 0);
+}
+\end{lstlisting}
+
+La primera vez se ejecuta una \textbf{migración automática} que copia todos los valores de SharedPreferences a SQLite.
+
+% ────────────────────────────────────────
+\subsection{UserRepository --- Autenticación}
+
+Usa siempre \texttt{kaisen\_clicker.db} (sin usuario). Las contraseñas se hashean con \textbf{SHA-256}:
+
+\begin{lstlisting}[style=javastyle]
+MessageDigest digest = MessageDigest.getInstance("SHA-256");
+byte[] hash = digest.digest(password.getBytes(UTF_8));
+// Se convierte a hexadecimal y se guarda en password_hash
+\end{lstlisting}
+
+Métodos: \texttt{registerUser()}, \texttt{authenticateUser()}, \texttt{userExists()}.
+
+% ============================================================
+\section{Módulo 2048 (resumen)}
+% ============================================================
+
+\begin{itemize}
+    \item \textbf{MainActivity}: tablero 4$\times$4 (\texttt{GridLayout}), puntuación, temporizador, gestos swipe, modos Normal/Blitz (5 min).
+    \item \textbf{GameEngine}: motor lógico puro (matriz \texttt{int[4][4]}). Movimientos, fusión de fichas, spawn aleatorio (90\% un 2, 10\% un 4).
+    \item Guarda datos en SharedPreferences \textbf{Y} en la BD global (\texttt{kaisen\_clicker\_<user>.db}) con claves \texttt{2048\_*}.
+    \item Cuando hay nuevo récord, inserta en la tabla \texttt{scores} con \texttt{game\_name = "2048"}.
+\end{itemize}
+
+% ============================================================
+\section{Resumen de tecnologías}
+% ============================================================
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Tecnología} & \textbf{Uso} \\
+\midrule
+Java & Lenguaje principal \\
+Android SDK (compileSdk 36, minSdk 26) & Plataforma \\
+Gradle (Kotlin DSL) & Build multi-módulo \\
+SQLite (\texttt{SQLiteOpenHelper}) & Base de datos local \\
+SharedPreferences & Sesión y configuración rápida \\
+RecyclerView + CardView + Cursor & Listas de puntuaciones \\
+ItemTouchHelper & Swipe-to-delete \\
+Material Design 3 & Componentes UI \\
+Glide 4.16.0 & Carga y reproducción de GIFs animados \\
+SplashScreen API & Splash nativo \\
+SHA-256 & Hash de contraseñas \\
+DataBinding & Enlace de vistas (StatisticsFragment) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
+

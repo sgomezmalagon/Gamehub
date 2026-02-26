@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <!-- Fondo transparente para que el icono (a menudo blanco) se vea correctamente -->
+    <solid android:color="#00000000"/>
+    <!-- Trazo oscuro sutil para contraste con iconos claros -->
+    <stroke android:width="2dp" android:color="#FF1F2937"/>
+</shape>

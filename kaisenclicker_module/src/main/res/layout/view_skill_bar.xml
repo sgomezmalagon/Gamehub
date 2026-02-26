@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/skill_bar"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_gravity="bottom|center_horizontal"
+    android:padding="12dp"
+    android:background="@drawable/bg_skill_bar_floating"
+    android:elevation="8dp">
+
+    <!-- Ejemplo de 4 habilidades, puedes inflar dinámicamente -->
+    <include layout="@layout/view_skill_button" />
+    <include layout="@layout/view_skill_button" />
+    <include layout="@layout/view_skill_button" />
+    <include layout="@layout/view_skill_button" />
+</LinearLayout>
+

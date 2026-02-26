@@ -1,0 +1,27 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Visión General del Proyecto}{2}{section.1}%
+\contentsline {section}{\numberline {2}Base de Datos --- Arquitectura de Persistencia}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Base de Datos Principal: \texttt {kaisen\_clicker.db}}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Base de Datos de Estadísticas: \texttt {kaisenclicker\_stats.db}}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Capa de Acceso a Datos: \texttt {SqlRepository}}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Persistencia Dual: SharedPreferences + SQLite}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Autenticación de Usuarios: \texttt {UserRepository}}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Sesión de Usuario: \texttt {SessionManager}}{4}{subsection.2.6}%
+\contentsline {section}{\numberline {3}GIFs Animados --- Animaciones de Habilidades}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Archivos GIF}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Mecanismo de Reproducción}{4}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Arquitectura de Módulos y Navegación}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Registro Dinámico de Juegos}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Flujo de Navegación Principal}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}BaseActivity --- Modo Inmersivo}{6}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Sistema de Juego: Kaisen Clicker}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Fragmentos Principales}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Sistema de Combate}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Sistema de Habilidades}{6}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Personajes Jugables}{7}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Sistema de Juego: 2048}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Motor del Juego: \texttt {GameEngine}}{7}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Sistema de Desafíos}{7}{section.7}%
+\contentsline {section}{\numberline {8}Leaderboard y Puntuaciones}{7}{section.8}%
+\contentsline {section}{\numberline {9}Dependencias Principales}{8}{section.9}%
+\contentsline {section}{\numberline {10}Resumen de Rutas Clave}{8}{section.10}%

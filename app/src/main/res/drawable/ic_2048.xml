@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono de 2048 para el GameHub (grid 2x2 estilizado) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFEDA952"
+        android:pathData="M3,3h8v8H3V3zM13,3h8v8h-8V3zM3,13h8v8H3v-8zM13,13h8v8h-8v-8z" />
+    <path
+        android:fillColor="#FFF9F6F2"
+        android:pathData="M5,6.5l1,-2h1.5l-1.5,2h1l1.5,-2h0.5v2.5h-1v-1l-1,1h-2zM14,5h2.5c0.5,0 1,0.3 1,0.8v0c0,0.4 -0.3,0.7 -0.7,0.8c0.5,0.1 0.8,0.4 0.8,0.9v0c0,0.6 -0.5,1 -1.1,1h-2.5v-3.5zM5,15h2c1,0 1.5,0.5 1.5,1.2v0c0,0.5 -0.3,0.9 -0.8,1l1,1.3h-1.2l-0.8,-1.1h-0.7v1.1h-1v-3.5zM14,15h2.5c0.5,0 1,0.3 1,0.8v0.1c0,0.6 -0.5,1 -1.1,1h-1.4v1.6h-1v-3.5z" />
+</vector>
+

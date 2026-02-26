@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tamaño por defecto para la imagen de invocación de personaje -->
+    <dimen name="character_summon_image_size">320dp</dimen>
+</resources>
+

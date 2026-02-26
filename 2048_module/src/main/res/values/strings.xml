@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">2048</string>
+    <string name="score_title">PUNTUACIÓN</string>
+    <string name="best_score_title">MEJOR PUNTUACIÓN</string>
+    <string name="moves_label">MOVIMIENTOS</string>
+    <string name="icon_placeholder">⚙️</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="anim_fast_title">Usar animación más rápida</string>
+    <string name="anim_fast_desc">Animaciones más cortas, juego más rápido.</string>
+    <string name="vibration_title">Activar Vibraciones</string>
+    <string name="vibration_desc">Te espera una sorpresa en 2048.</string>
+</resources>

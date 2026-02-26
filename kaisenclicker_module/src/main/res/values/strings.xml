@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">Kaisen Clicker</string>
+
+    <!-- Bottom Navigation -->
+    <string name="shop_icon">upgrades</string>
+    <string name="chest_icon">lootboxes</string>
+    <string name="campaign_icon">Battle</string>
+    <string name="campaign">Battle</string>
+    <string name="inventory_icon">Characters</string>
+    <string name="notifications_icon">estadisticas</string>
+
+    <!-- Character Inventory -->
+    <string name="character_inventory">Character Inventory</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="character_image">Character Image</string>
+    <string name="locked">LOCKED</string>
+    <string name="unlock_skill">🔓 UNLOCK</string>
+    <string name="upgrade_skill">⬆️ UPGRADE</string>
+
+    <!-- Shop Upgrades -->
+    <string name="tap_damage">Reforzamiento EM</string>
+    <string name="auto_clicker">Auto Clicker</string>
+    <string name="black_flash">Black Flash</string>
+    <string name="gold_boost">Gold Boost</string>
+    <string name="sample_character_name">Satoru Gojo</string>
+    <string name="sample_rarity">★★★★★ LEGENDARY</string>
+    <string name="sample_level">Lvl 85</string>
+    <string name="power_icon">Power</string>
+    <string name="sample_power">Power: 12,450</string>
+
+    <!-- Skills -->
+    <string name="skills_title">Skills &amp; Abilities</string>
+    <string name="skill_icon">Skill Icon</string>
+    <string name="sample_skill_name">Limitless Technique</string>
+    <string name="sample_skill_level">Lvl 10</string>
+    <string name="sample_skill_description">Creates an invisible barrier that repels all attacks and damage for 3 seconds.</string>
+    <string name="cost_icon">Cost Icon</string>
+    <string name="sample_cost">500</string>
+
+    <!-- Ultimate Skill -->
+    <string name="ultimate">ULTIMATE</string>
+    <string name="ultimate_skill_icon">Ultimate Skill Icon</string>
+    <string name="sample_ultimate_name">Hollow Purple</string>
+    <string name="sample_ultimate_description">Unleashes a devastating energy blast that deals massive damage to all enemies and stuns them for 5 seconds. This technique combines both attraction and repulsion forces.</string>
+    <string name="sample_charge_percentage">Charge: 75%</string>
+    <string name="upgrade_ultimate">Upgrade Ultimate</string>
+    <string name="gem_cost_icon">Gem Cost</string>
+    <string name="sample_gem_cost">50</string>
+    <string name="fragment_cost_icon">Fragment Cost</string>
+    <string name="sample_fragment_cost">10</string>
+
+    <!-- New strings for CharacterInventoryFragment -->
+    <string name="ryomen_sukuna">Ryomen Sukuna</string>
+    <string name="rarity_legendary">★★★★★ LEGENDARY</string>
+    <string name="lvl_format">Lvl %1$d</string>
+    <string name="power_format">Power: %1$s</string>
+    <string name="xp_format">XP: %1$d / %2$d</string>
+    <string name="skill_cleave_name">Cleave</string>
+    <string name="skill_cleave_desc">A precise slashing attack that adapts to the target\'s toughness for maximum damage.</string>
+    <string name="skill_dismantle_name">Dismantle</string>
+    <string name="skill_dismantle_desc">A fast slicing attack that cuts enemies at range with cursed energy.</string>
+    <string name="skill_fuga_name">Fuga</string>
+    <string name="skill_fuga_desc">Ignites cursed flames that burn everything in its path with overwhelming force.</string>
+    <!-- Gojo skills -->
+    <string name="skill_amplificacion_azul_name">Amplificación Azul</string>
+    <string name="skill_amplificacion_azul_desc">Genera una atracción energética que concentra la energía maldita del enemigo, aumentando el daño al colapsarla.</string>
+    <string name="skill_ritual_inverso_rojo_name">Ritual Inverso Rojo</string>
+    <string name="skill_ritual_inverso_rojo_desc">Un golpe explosivo que empuja y dispersa energía maldita causando daño masivo en área y aplicando quemaduras.</string>
+    <string name="skill_vacio_purpura_name">Vacío Púrpura</string>
+    <string name="skill_vacio_purpura_desc">Combina fuerza de atracción y repulsión para crear un vacío que devasta el objetivo, ignorando parte de su armadura.</string>
+    <string name="ultimate_name_local">Expansión de dominio</string>
+    <string name="ultimate_desc_local">Dominio: Expansión de dominio que atrapa al enemigo en un ritual de cortes inevitables.</string>
+    <string name="ultimate_desc_gojo">Dominio: Durante la duración del dominio tus habilidades no tendrán cooldown.</string>
+    <string name="charge_percentage_local">Charge: %1$d%%</string>
+    <string name="locked_requirement">🔒 Requiere nivel %1$d</string>
+    <string name="skill_upgraded_to">⬆️ Skill %1$d upgraded to Lvl %2$d!</string>
+    <string name="ultimate_upgraded">🌟 Ultimate upgraded to Lvl %1$d! 🌟</string>
+    <string name="lvl_unknown">Lvl --</string>
+    <string name="btn_locked">🔒 BLOQUEADO</string>
+    <string name="btn_upgrade">⬆️ MEJORAR</string>
+    <string name="skill">Skill</string>
+
+    <!-- Statistics strings -->
+    <string name="stats_title">Statistics</string>
+    <string name="stats_total_damage">Total Damage: %1$s</string>
+    <string name="stats_total_clicks">Total Clicks: %1$s</string>
+    <string name="stats_dps">DPS (avg): %1$.2f</string>
+    <string name="stats_enemies_defeated">Enemies defeated: %1$d</string>
+    <string name="stats_bosses_defeated">Bosses defeated: %1$d</string>
+    <string name="stats_characters_unlocked">Characters unlocked: %1$d</string>
+    <string name="btn_reset_stats">Reset stats</string>
+    <string name="label_enemies">Enemies defeated</string>
+    <string name="label_bosses">Bosses defeated</string>
+    <string name="label_clicks">Total Clicks</string>
+    <string name="label_characters">Characters unlocked</string>
+    <string name="label_enemies_defeated">Enemigos derrotados</string>
+    <string name="label_bosses_defeated">Jefes derrotados</string>
+    <string name="label_total_clicks">Clicks totales</string>
+    <string name="label_characters_unlocked">Personajes desbloqueados</string>
+    <string name="reset_stats_desc">Reset stats</string>
+    <string name="label_total_damage">Total Damage</string>
+    <string name="percent_format">%1$d%%</string>
+    <string name="zero">0</string>
+    <string name="stats_dps_default">DPS (avg): 0.00</string>
+    <string name="stats_total_damage_default">Total Damage: 0</string>
+    <string name="stats_total_clicks_default">Total Clicks: 0</string>
+</resources>

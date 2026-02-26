@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bg_screen">#FAF8F0</color>
+    <color name="bg_grid">#A28D7D</color>
+    <color name="bg_score">#EBE0D0</color>
+    <color name="text_brown">#6D5B4F</color>
+    <color name="tile_0">#C2B3A3</color>
+    <color name="tile_2">#EBE0D0</color>
+    <color name="tile_4">#EBE0D0</color>
+    <color name="tile_8">#E8D2A6</color>
+    <color name="tile_16">#E29E73</color>
+    <color name="tile_32">#E88267</color>
+    <color name="tile_64">#E56447</color>
+    <color name="tile_128">#E8D2A6</color>
+    <color name="tile_256">#E8D2A6</color>
+    <color name="tile_512">#E8D2A6</color>
+    <color name="tile_1024">#E8D2A6</color>
+    <color name="tile_2048">#E8D2A6</color>
+    <color name="bg_bottom_sheet">#FAF8F0</color>
+    <color name="bg_theme_selected">#3E3E3E</color>
+    <color name="text_theme_selected">#FFFFFF</color>
+    <color name="stroke_theme_unselected">#A28D7D</color>
+    <color name="handle_gray">#E0E0E0</color>
+    <color name="text_on_tile">#776E65</color>
+
+    <!-- Dialog mode selector -->
+    <color name="bg_dialog">#FAF8F0</color>
+    <color name="card_normal_bg">#EEE4DA</color>
+    <color name="card_blitz_bg">#F2B179</color>
+    <color name="card_blitz_dark">#D4944A</color>
+    <color name="accent_gold">#EDC22E</color>
+    <color name="text_subtitle">#9C8B7E</color>
+</resources>

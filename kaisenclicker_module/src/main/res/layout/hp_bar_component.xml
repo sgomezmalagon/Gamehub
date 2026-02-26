@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:background="#00000000">
+
+    <!-- Enemy Name and Level Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="6dp">
+
+        <!-- Enemy Name: "Yusepe" -->
+        <TextView
+            android:id="@+id/enemy_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Yusepe"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:letterSpacing="0.05" />
+
+        <!-- Boss icon (hidden by default) -->
+        <ImageView
+            android:id="@+id/enemy_boss_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ic_boss"
+            android:contentDescription="Boss icon"
+            android:visibility="gone" />
+
+        <!-- Enemy Level: "Level X" -->
+        <TextView
+            android:id="@+id/enemy_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level 1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#94A3B8"
+            android:letterSpacing="0.1" />
+
+    </LinearLayout>
+
+    <!-- Label "HEALTH" con estilo anime -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEALTH"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="#94A3B8"
+        android:letterSpacing="0.15"
+        android:paddingStart="8dp"
+        android:paddingBottom="4dp" />
+
+    <!-- HP Bar with solid green progress -->
+    <ProgressBar
+        android:id="@+id/hp_bar_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/hp_bar_progress"
+        android:indeterminate="false"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp" />
+
+    <!-- Armor bar: thin yellow bar shown below HP. Hidden by default -->
+    <ProgressBar
+        android:id="@+id/armor_bar_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="6dp"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="#FBBF24"
+        android:indeterminate="false"
+        android:visibility="gone" />
+
+    <!-- Separador sutil -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#1E293B"
+        android:layout_marginTop="6dp" />
+
+</LinearLayout>

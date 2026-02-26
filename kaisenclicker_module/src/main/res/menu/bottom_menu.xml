@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_shop"
+        android:icon="@drawable/ic_shop"
+        android:title="@string/shop_icon" />
+
+    <item
+        android:id="@+id/action_chest"
+        android:icon="@drawable/chest"
+        android:title="@string/chest_icon" />
+
+    <item
+        android:id="@+id/action_campaign"
+        android:icon="@drawable/battle_icon"
+        android:title="@string/campaign_icon" />
+
+    <item
+        android:id="@+id/action_trophy"
+        android:icon="@drawable/ic_trophy"
+        android:title="@string/inventory_icon" />
+
+    <item
+        android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/notifications_icon" />
+
+</menu>

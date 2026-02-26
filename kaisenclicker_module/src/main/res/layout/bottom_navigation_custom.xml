@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_root"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:background="@drawable/bg_bottom_nav"
+    android:paddingTop="8dp"
+    android:paddingBottom="12dp">
+
+    <!-- Horizontal chain of five icon containers -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nav_item_1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#2D3E50"
+        app:strokeColor="#4A5F8E"
+        app:strokeWidth="3dp"
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nav_item_2"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <ImageView
+            android:id="@+id/icon_shop"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_up"
+            android:contentDescription="@string/shop_icon"
+            app:tint="@color/icon_chest_color"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nav_item_2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#2D3E50"
+        app:strokeColor="#4A5F8E"
+        app:strokeWidth="3dp"
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nav_item_1"
+        app:layout_constraintEnd_toStartOf="@+id/nav_item_center">
+
+        <ImageView
+            android:id="@+id/icon_chest"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/chest"
+            android:contentDescription="@string/chest_icon"
+            app:tint="@color/icon_chest_color"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Center button (Battle) — same style as other nav items -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nav_item_center"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#2D3E50"
+        app:strokeColor="#4A5F8E"
+        app:strokeWidth="3dp"
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nav_item_2"
+        app:layout_constraintEnd_toStartOf="@+id/nav_item_4">
+
+        <ImageView
+            android:id="@+id/icon_swords"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/battle_icon"
+            android:contentDescription="@string/campaign_icon"
+            app:tint="@color/icon_chest_color"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nav_item_4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#2D3E50"
+        app:strokeColor="#4A5F8E"
+        app:strokeWidth="3dp"
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nav_item_center"
+        app:layout_constraintEnd_toStartOf="@+id/nav_item_5">
+
+        <ImageView
+            android:id="@+id/icon_inventory"
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/inventory_icon"
+            android:src="@drawable/character_menu"
+            app:tint="@color/icon_chest_color" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nav_item_5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#2D3E50"
+        app:strokeColor="#4A5F8E"
+        app:strokeWidth="3dp"
+        app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nav_item_4"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/icon_notifications"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/notifications_icon"
+            android:src="@drawable/ic_trophy"
+            app:tint="@color/icon_chest_color" />
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

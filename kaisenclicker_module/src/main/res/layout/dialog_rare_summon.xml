@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/ivRareSummon"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/rare_summon_animation"
+            android:contentDescription="rare summon"
+            android:visibility="visible"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:alpha="0" />
+
+        <TextView
+            android:id="@+id/tvCursedEnergy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"
+            android:text="0"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

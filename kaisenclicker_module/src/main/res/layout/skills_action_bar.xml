@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/skills_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="12dp"
+    android:spacing="8dp"
+    android:background="#00000000">
+
+    <!-- Skill Button 1: Cleave -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_skill_1"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Cleave"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:icon="@drawable/cleave_image"
+        app:iconGravity="top"
+        app:iconSize="32dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="#FF6B35"
+        android:visibility="gone" />
+
+    <!-- Skill Button 2: Dismantle -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_skill_2"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Dismantle"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:icon="@drawable/dismanteal"
+        app:iconGravity="top"
+        app:iconSize="32dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="#F77F00"
+        android:visibility="gone" />
+
+    <!-- Skill Button 3: Fuga -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_skill_3"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Fuga"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:icon="@drawable/fuga_image"
+        app:iconGravity="top"
+        app:iconSize="32dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="#06A77D"
+        android:visibility="gone" />
+
+    <!-- Skill Button Ultimate: Domain Expansion -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_skill_ultimate"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Domain"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:icon="@drawable/sukuna_domain"
+        app:iconGravity="top"
+        app:iconSize="32dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="#8B0000"
+        android:visibility="gone" />
+
+</LinearLayout>

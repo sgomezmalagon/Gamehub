@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shibuya">
+
+    <!-- HP Bar Component (encima del enemigo) -->
+    <com.example.kaisenclicker.ui.components.HpBarComponent
+        android:id="@+id/hp_bar_component"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/enemy_card" />
+
+    <!-- Enemy Container (Centered y más abajo) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/enemy_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        android:elevation="0dp"
+        app:cardUseCompatPadding="false"
+        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="#00000000"
+        android:clipToPadding="false"
+        android:clipToOutline="false"
+        app:rippleColor="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.62"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp">
+
+        <ImageView
+            android:id="@+id/iv_enemy_yusepe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/yusepe"
+            android:scaleType="centerCrop"
+            android:contentDescription="Yusepe Enemy"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Damage popup centered over the enemy card -->
+    <TextView
+        android:id="@+id/tv_damage_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-0"
+        android:textColor="#FF5252"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:shadowColor="#66000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="6"
+        app:layout_constraintTop_toTopOf="@id/enemy_card"
+        app:layout_constraintBottom_toBottomOf="@id/enemy_card"
+        app:layout_constraintStart_toStartOf="@id/enemy_card"
+        app:layout_constraintEnd_toEndOf="@id/enemy_card"
+        android:gravity="center" />
+
+    <!-- Energy Display at Bottom Right -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/energy_display_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="#1A2633"
+        app:strokeColor="#9C27B0"
+        app:strokeWidth="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/energy_coin"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_player_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#9C27B0" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Debug overlay (visible en pruebas) -->
+    <TextView
+        android:id="@+id/tv_debug_overlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#FFFFFFFF"
+        android:background="#66000000"
+        android:padding="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible" />
+
+    <!-- Fin barra de habilidades eliminada temporalmente -->
+
+    <!-- Botón para activar/desactivar el autoclicker -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_autoclicker_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="12dp"
+        android:visibility="visible"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toBottomOf="@id/hp_bar_component"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/btn_toggle_autoclicker"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/bg_autoclicker_off"
+            android:minWidth="130dp">
+
+            <!-- Indicador de estado (punto) -->
+            <View
+                android:id="@+id/autoclicker_status_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/dot_autoclicker_off"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_autoclicker_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AUTO"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#444444"
+                android:letterSpacing="0.1"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:id="@+id/tv_autoclicker_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔒"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Zona de habilidades activas (Skill Bar) premium -->
+    <LinearLayout
+        android:id="@+id/skill_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.example.kaisenclicker.ui.components.SkillButtonView
+            android:id="@+id/btn_skill_1"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="12dp" />
+
+        <com.example.kaisenclicker.ui.components.SkillButtonView
+            android:id="@+id/btn_skill_2"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="12dp" />
+
+        <com.example.kaisenclicker.ui.components.SkillButtonView
+            android:id="@+id/btn_skill_3"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="12dp" />
+
+        <com.example.kaisenclicker.ui.components.SkillButtonView
+            android:id="@+id/btn_skill_ultimate"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp" />
+
+    </LinearLayout>
+
+    <!-- Barra de carga de Ultimate -->
+    <include
+        layout="@layout/ultimate_charge_bar"
+        android:id="@+id/ultimate_charge_bar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/skill_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Fullscreen GIF overlay for skill animations (Fuga / Hollow Purple) -->
+    <ImageView
+        android:id="@+id/skill_gif_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:background="#CC000000"
+        android:visibility="gone"
+        android:elevation="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
